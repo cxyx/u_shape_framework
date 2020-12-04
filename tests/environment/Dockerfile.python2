@@ -1,0 +1,13 @@
+FROM dockerhub.datagrand.com/idps/python27_with_ssh_git:1.1
+MAINTAINER lihanqing@datagrand.com
+
+ADD requirements.txt /root/u_shape_framework/
+RUN cd /root/u_shape_framework/ &&\
+    pip install -r requirements.txt &&\
+    rm ./requirements.txt
+
+ADD ./tests /root/u_shape_framework/tests/
+ADD ./u_shape_framework /root/u_shape_framework/u_shape_framework
+WORKDIR /root/u_shape_framework
+
+CMD /usr/sbin/sshd -D
